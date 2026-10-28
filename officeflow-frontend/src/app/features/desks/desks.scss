@@ -1,0 +1,134 @@
+$gap: 20px;
+$muted: #6b7280;
+
+.desk-page {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
+
+.page-header {
+    h1 {
+        margin: 0;
+    }
+
+    p {
+        margin: 5px 0;
+        color: $muted;
+    }
+}
+
+.booking-controls {
+    display: flex;
+    gap: $gap;
+    flex-wrap: wrap;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 220px;
+
+    label {
+        font-weight: 600;
+    }
+}
+
+.desk-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.legend {
+    display: flex;
+    gap: 8px;
+}
+
+.desk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $gap;
+}
+
+.desk-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.desk-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h3 {
+        margin: 0;
+    }
+
+    span {
+        color: $muted;
+    }
+}
+
+.feature-item {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+
+    i {
+        color: #22c55e;
+    }
+}
+
+.desk-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h2,
+    p {
+        margin: 0;
+    }
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+
+.reserved-by {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+:host ::ng-deep {
+    .desk-card {
+        height: 100%;
+    }
+
+    .desk-button {
+        width: 100%;
+    }
+
+    .p-datepicker,
+    .p-select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .desk-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-controls {
+        flex-direction: column;
+    }
+}

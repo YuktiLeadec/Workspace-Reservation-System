@@ -1,0 +1,195 @@
+<p-toast></p-toast>
+
+<section class="desk-page">
+
+    <div class="page-header">
+        <h1>{{ 'DESKS.TITLE' | translate }}</h1>
+
+        <p>
+            {{ 'DESKS.DESCRIPTION' | translate }}
+        </p>
+    </div>
+
+    <p-card>
+
+        <div class="booking-controls">
+
+            <div class="field">
+
+                <label for="bookingDate">
+                    {{ 'DESKS.BOOKING_DATE' | translate }}
+                </label>
+
+                <p-datepicker inputId="bookingDate" [(ngModel)]="selectedDate" [showIcon]="true" [showButtonBar]="true"
+                    dateFormat="dd/mm/yy">
+                </p-datepicker>
+
+            </div>
+
+            <div class="field">
+
+                <label for="floor">
+                    {{ 'DESKS.FLOOR' | translate }}
+                </label>
+
+                <p-select inputId="floor" [options]="floors" [(ngModel)]="selectedFloor" optionLabel="label"
+                    optionValue="value" placeholder="Select floor">
+                </p-select>
+
+            </div>
+
+        </div>
+
+    </p-card>
+
+
+    <div class="desk-section-header">
+
+        <div>
+            <h2>
+                {{ 'DESKS.FLOOR' | translate }} {{ selectedFloor }}
+            </h2>
+
+            <p>
+                {{ 'DESKS.CHOOSE_DESK' | translate }}
+            </p>
+        </div>
+
+        <div class="legend">
+
+            <p-tag [value]="'STATUS.AVAILABLE' | translate" severity="success">
+            </p-tag>
+
+            <p-tag [value]="'STATUS.RESERVED' | translate" severity="danger">
+            </p-tag>
+
+        </div>
+
+    </div>
+
+
+    <div class="desk-grid">
+
+        @for (desk of filteredDesks; track desk.id) {
+
+        <p-card styleClass="desk-card">
+
+            <div class="desk-card-content">
+
+                <div class="desk-card-header">
+
+                    <div>
+                        <h3>
+                            {{ desk.code }}
+                        </h3>
+
+                        <span>
+                            {{ desk.zone }}
+                        </span>
+                    </div>
+
+                    @if (isAvailable(desk.id)) {
+
+                    <p-tag [value]="'STATUS.AVAILABLE' | translate" severity="success">
+                    </p-tag>
+
+                    } @else {
+
+                    <p-tag [value]="'STATUS.RESERVED' | translate" severity="danger">
+                    </p-tag>
+
+                    }
+                    <div class="reserved-by">
+
+                        {{ 'STATUS.RESERVED_BY' | translate }}
+                        {{ getBookingForDesk(desk.id)?.employeeName }}
+                    </div>
+                </div>
+
+
+                <div class="desk-features">
+
+                    @for (feature of desk.features; track feature) {
+
+                    <div class="feature-item">
+
+                        <i class="pi pi-check-circle"></i>
+
+                        <span>
+                            {{ feature }}
+                        </span>
+
+                    </div>
+
+                    }
+
+                </div>
+
+
+                <p-button label="View Desk" icon="pi pi-eye" styleClass="desk-button" (onClick)="openDesk(desk)">
+                </p-button>
+            </div>
+        </p-card>
+        }
+
+    </div>
+</section>
+
+
+<p-dialog header="Desk Details" [(visible)]="showDeskDialog" [modal]="true" [style]="{ width: '420px' }">
+
+    @if (selectedDesk) {
+
+    <div class="desk-details">
+
+        <h2>
+            {{ selectedDesk.code }}
+        </h2>
+
+        <p>
+            Floor {{ selectedDesk.floor }}
+            ·
+            {{ selectedDesk.zone }}
+        </p>
+
+        @if (isAvailable(selectedDesk.id)) {
+        <p-tag value="Available" severity="success"></p-tag>
+
+        } @else {
+        <p-tag value="Reserved" severity="danger"></p-tag>
+
+        }
+
+        <div class="features">
+
+            @for (feature of selectedDesk.features; track feature) {
+
+            <p>
+                <i class="pi pi-check"></i>
+
+                {{ feature }}
+            </p>
+
+            }
+
+        </div>
+
+
+        <div class="dialog-actions">
+
+            @if (isAvailable(selectedDesk.id)) {
+            <p-button [label]="'DESKS.RESERVE_DESK' | translate" icon="pi pi-check" (onClick)="reserveDesk()">
+            </p-button>
+            } @else {
+
+            <p-button [label]="'COMMON.CANCEL' | translate" severity="danger" (onClick)="cancelReservation()">
+            </p-button>
+            }
+
+        </div>
+
+    </div>
+
+    }
+
+</p-dialog>

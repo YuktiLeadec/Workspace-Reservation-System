@@ -1,0 +1,284 @@
+<section class="team-page">
+
+    <div class="team-header">
+
+        <div>
+            <h1>{{ 'TEAM.TITLE' | translate }}</h1>
+
+            <p>
+                {{ 'TEAM.SUBTITLE' | translate }}
+            </p>
+        </div>
+
+        <button class="book-button">
+            + {{ 'TEAM.BOOK_DESK' | translate }}
+        </button>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span>{{ 'TEAM.TEAM_MEMBERS' | translate }}</span>
+
+            <strong>
+                {{ teamMembers.length }}
+            </strong>
+
+            <small>
+                {{ 'TEAM.TEAM_MEMBERS_DESC' | translate }}
+            </small>
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>{{ 'TEAM.PEAK_ATTENDANCE' | translate }}</span>
+
+            <strong>
+                {{ peakAttendance }}
+            </strong>
+
+            <small>
+                {{ 'TEAM.PEAK_ATTENDANCE_DESC' | translate }}
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>{{ 'TEAM.OFFICE_CAPACITY' | translate }}</span>
+
+            <strong>
+                {{ totalDesks }}
+            </strong>
+
+            <small>
+                {{ 'TEAM.OFFICE_CAPACITY_DESC' | translate }}
+            </small>
+
+        </div>
+
+
+        <div class="stat-card highlight">
+
+            <span>{{ 'TEAM.BEST_COLLAB_DAY' | translate }}</span>
+
+            <strong>
+                {{ bestCollaborationDay }}
+            </strong>
+
+            <small>
+                {{ 'TEAM.BEST_COLLAB_DAY_DESC' | translate }}
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="planner-card">
+
+        <div class="planner-title">
+
+            <div>
+                <h2>{{ 'TEAM.WEEKLY_PRESENCE' | translate }}</h2>
+
+                <p>
+                    {{ 'TEAM.WEEKLY_PRESENCE_DESC' | translate }}
+                </p>
+            </div>
+
+            <div class="legend">
+
+                <span class="office-dot"></span>
+                {{ 'TEAM.OFFICE' | translate }}
+
+                <span class="remote-dot"></span>
+                {{ 'TEAM.REMOTE' | translate }}
+
+            </div>
+
+        </div>
+
+        <div class="planner-grid planner-header">
+
+            <div class="employee-column">
+                {{ 'TEAM.TEAM_MEMBER' | translate }}
+            </div>
+
+            <div *ngFor="let day of weekDays" class="day-header">
+
+                <strong>
+                    {{ day.day }}
+                </strong>
+
+                <span>
+                    {{ day.shortDate }}
+                </span>
+
+            </div>
+
+        </div>
+
+        <div *ngFor="let member of teamMembers" class="planner-grid employee-row">
+
+            <div class="employee">
+
+                <div class="avatar">
+                    {{ member.initials }}
+                </div>
+
+                <div>
+                    <strong>
+                        {{ member.name }}
+                    </strong>
+
+                    <span>
+                        {{ member.role }}
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div *ngFor="let day of weekDays" class="presence-cell">
+
+                <ng-container *ngIf="isOffice(member, day.date); else remote">
+
+                    <div class="office-status">
+
+                        <span class="status-icon">
+                            🏢
+                        </span>
+
+                        <strong>
+                            {{ 'TEAM.OFFICE' | translate }}
+                        </strong>
+
+                        <small>
+                            {{ 'TEAM.DESK' | translate }}
+                            {{ getBooking(member, day.date)?.deskId }}
+                        </small>
+
+                    </div>
+
+                </ng-container>
+
+
+                <ng-template #remote>
+
+                    <div class="remote-status">
+
+                        <span>
+                            🏠
+                        </span>
+
+                        <strong>
+                            {{ 'TEAM.REMOTE' | translate }}
+                        </strong>
+
+                    </div>
+
+                </ng-template>
+
+            </div>
+
+        </div>
+
+        <div class="planner-grid summary-row">
+
+            <div>
+                <strong>
+                    {{ 'TEAM.PEOPLE_IN_OFFICE' | translate }}
+                </strong>
+            </div>
+
+            <div *ngFor="let day of weekDays" class="summary-value">
+
+                <strong>
+                    {{ peopleInOffice(day.date) }}
+                </strong>
+
+                <span>
+                    / {{ teamMembers.length }}
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="planner-grid desk-row">
+
+            <div>
+                {{ 'TEAM.AVAILABLE_DESKS' | translate }}
+            </div>
+
+            <div *ngFor="let day of weekDays">
+
+                {{ availableDesks(day.date) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="insight-grid">
+
+        <div class="insight-card">
+
+            <div class="insight-icon">
+                👥
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ 'TEAM.COLLABORATION_INSIGHT' | translate }}
+                </h3>
+
+                <p>
+                    <strong>{{ bestCollaborationDay }}</strong>
+                    {{ 'TEAM.COLLABORATION_TEXT' | translate }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-card">
+
+            <div class="insight-icon">
+                🪑
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ 'TEAM.CAPACITY' | translate }}
+                </h3>
+
+                <p>
+                    {{ 'TEAM.CAPACITY_TEXT' | translate }}
+                    <strong>
+                        {{ peakAttendance }} / {{ totalDesks }}
+                    </strong>
+                    desks.
+                </p>
+
+                <div class="capacity-bar">
+
+                    <div class="capacity-fill" [style.width.%]="(peakAttendance / totalDesks) * 100">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

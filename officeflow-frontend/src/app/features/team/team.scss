@@ -1,0 +1,297 @@
+.team-page {
+    padding: 2rem;
+    max-width: 1500px;
+    margin: auto;
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    p {
+        color: #6b7280;
+        margin-top: .4rem;
+    }
+}
+
+.book-button {
+    border: 0;
+    background: #10b981;
+    color: white;
+    padding: .75rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.3rem;
+    background: white;
+
+    span {
+        display: block;
+        color: #6b7280;
+        font-size: .85rem;
+    }
+
+    strong {
+        display: block;
+        font-size: 1.8rem;
+        margin: .5rem 0;
+    }
+
+    small {
+        color: #9ca3af;
+    }
+}
+
+.stat-card.highlight {
+    border-left: 4px solid #10b981;
+}
+
+.planner-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+}
+
+.planner-title {
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+        margin: 0;
+    }
+
+    p {
+        margin: .3rem 0 0;
+        color: #6b7280;
+    }
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .85rem;
+}
+
+.office-dot,
+.remote-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.office-dot {
+    background: #10b981;
+}
+
+.remote-dot {
+    background: #d1d5db;
+    margin-left: 1rem;
+}
+
+.planner-grid {
+    display: grid;
+    grid-template-columns:
+        240px repeat(5, 1fr);
+}
+
+.planner-header {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.employee-column,
+.day-header {
+    padding: 1rem;
+}
+
+.day-header {
+    text-align: center;
+
+    span {
+        display: block;
+        font-size: .75rem;
+        color: #6b7280;
+        margin-top: .3rem;
+    }
+}
+
+.employee-row {
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.employee {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: 1rem;
+
+    strong {
+        display: block;
+    }
+
+    span {
+        font-size: .8rem;
+        color: #6b7280;
+    }
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ecfdf5;
+    color: #047857;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.presence-cell {
+    padding: .6rem;
+}
+
+.office-status,
+.remote-status {
+    min-height: 65px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.office-status {
+    background: #ecfdf5;
+    color: #047857;
+
+    small {
+        margin-top: .25rem;
+    }
+}
+
+.remote-status {
+    background: #f9fafb;
+    color: #6b7280;
+}
+
+.summary-row {
+    background: #f9fafb;
+    padding: .3rem 0;
+
+    >div {
+        padding: 1rem;
+    }
+}
+
+.summary-value {
+    text-align: center;
+
+    strong {
+        font-size: 1.2rem;
+    }
+
+    span {
+        color: #6b7280;
+    }
+}
+
+.desk-row {
+    border-top: 1px solid #e5e7eb;
+
+    >div {
+        padding: .8rem 1rem;
+        text-align: center;
+    }
+
+    >div:first-child {
+        text-align: left;
+    }
+}
+
+.insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.insight-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.3rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+
+    h3 {
+        margin: 0 0 .4rem;
+    }
+
+    p {
+        margin: 0;
+        color: #6b7280;
+        line-height: 1.5;
+    }
+}
+
+.insight-icon {
+    font-size: 1.5rem;
+}
+
+.capacity-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.capacity-fill {
+    height: 100%;
+    background: #10b981;
+    border-radius: 10px;
+}
+
+@media (max-width: 1000px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .planner-card {
+        overflow-x: auto;
+    }
+
+    .planner-grid {
+        min-width: 950px;
+    }
+
+    .insight-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,45 @@
+<p-toolbar styleClass="office-header">
+    <ng-template #start>
+        <div class="header-title">
+            <h2>{{ 'DASHBOARD.TITLE' | translate }}</h2>
+            <span>{{ 'DASHBOARD.SUBTITLE' | translate }}</span>
+        </div>
+    </ng-template>
+
+    <ng-template #end>
+        <div class="header-actions">
+
+            <p-select [options]="languages" [(ngModel)]="selectedLanguage" optionLabel="label" optionValue="value"
+                (onChange)="changeLanguage($event.value)" placeholder="Language">
+            </p-select>
+
+            <p-button icon="pi pi-ball" [text]="true" [rounded]="true" severity="secondary">
+            </p-button>
+
+
+            <div class="user-profile" *ngIf="selectedEmployee">
+
+                <p-avatar [label]="selectedEmployee.name.substring(0,2)" shape="circle">
+                </p-avatar>
+
+                <div class="user-text">
+                    <strong>{{ selectedEmployee.name }}</strong>
+                    <span>{{ selectedEmployee.team }}</span>
+                </div>
+
+                <select [(ngModel)]="selectedEmployee" (change)="onEmployeeChange()">
+
+                    <option *ngFor="let employee of employees" [ngValue]="employee">
+
+                        {{ employee.name }}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+    </ng-template>
+
+</p-toolbar>

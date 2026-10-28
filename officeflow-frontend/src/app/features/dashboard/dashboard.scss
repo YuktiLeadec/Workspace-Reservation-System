@@ -1,0 +1,548 @@
+.dashboard-page {
+    padding: 2rem;
+    min-height: 100%;
+    background: #f8fafc;
+}
+
+.dashboard-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 2rem;
+
+    margin-bottom: 2rem;
+}
+
+
+.header-title {
+
+    h1 {
+        margin: 0;
+
+        font-size: 2rem;
+        font-weight: 700;
+
+        color: #0f172a;
+    }
+
+    p {
+        margin: 0.4rem 0 0;
+
+        color: #64748b;
+    }
+}
+
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.dashboard-toolbar {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 1.5rem;
+
+    padding: 1.25rem;
+
+    margin-bottom: 1.5rem;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+
+.toolbar-title {
+
+    display: block;
+
+    color: #0f172a;
+
+    font-weight: 600;
+}
+
+
+.toolbar-description {
+
+    display: block;
+
+    margin-top: 0.3rem;
+
+    color: #64748b;
+
+    font-size: 0.85rem;
+}
+
+
+.toolbar-actions {
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 0.75rem;
+}
+
+
+.date-filter {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.4rem;
+
+    label {
+
+        color: #475569;
+
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+}
+
+// KPI CARDS
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1.25rem;
+
+    margin-bottom: 1.5rem;
+}
+
+
+:host ::ng-deep .metric-card {
+
+    height: 100%;
+
+    border: 1px solid #e2e8f0;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+:host ::ng-deep .metric-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+
+.metric-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 1rem;
+
+    color: #64748b;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+.metric-icon-container {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 2.4rem;
+    height: 2.4rem;
+
+    border-radius: 8px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-size: 1.1rem;
+}
+
+
+.metric-value {
+
+    margin-top: 1rem;
+
+    color: #0f172a;
+
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+.metric-description {
+
+    margin-top: 0.75rem;
+
+    color: #94a3b8;
+
+    font-size: 0.82rem;
+}
+
+
+:host ::ng-deep .utilization-card {
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.utilization-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1.25rem;
+}
+
+
+.utilization-value {
+
+    color: #0f172a;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    span {
+
+        margin-left: 0.4rem;
+
+        color: #64748b;
+
+        font-size: 0.9rem;
+        font-weight: 400;
+    }
+}
+
+
+.utilization-status {
+
+    margin-top: 0.25rem;
+
+    color: #64748b;
+
+    font-size: 0.85rem;
+}
+
+
+.utilization-footer {
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-top: 1rem;
+
+    color: #64748b;
+
+    font-size: 0.85rem;
+
+    i {
+        margin-right: 0.35rem;
+    }
+}
+
+.business-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr) minmax(280px, 1fr);
+
+    gap: 1.25rem;
+
+    margin-top: 1.5rem;
+}
+
+
+:host ::ng-deep .business-card {
+
+    height: 100%;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+
+.status-list {
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.status-item {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 1rem 0;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+.status-item:first-child {
+    padding-top: 0;
+}
+
+
+.status-item:last-child {
+
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+
+.status-info {
+
+    display: flex;
+    align-items: center;
+
+    gap: 0.8rem;
+
+    min-width: 0;
+
+    strong {
+        display: block;
+
+        color: #1e293b;
+    }
+
+    span {
+
+        display: block;
+
+        margin-top: 0.2rem;
+
+        color: #94a3b8;
+
+        font-size: 0.8rem;
+    }
+}
+
+
+.status-icon {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 2.5rem;
+    height: 2.5rem;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    color: #475569;
+}
+
+
+.status-number {
+
+    color: #0f172a;
+
+    font-size: 1.3rem;
+}
+
+.quick-actions-description {
+
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+    color: #64748b;
+
+    font-size: 0.85rem;
+}
+
+
+.quick-actions {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.75rem;
+}
+
+
+:host ::ng-deep .quick-actions .p-button {
+
+    width: 100%;
+
+    justify-content: flex-start;
+}
+
+.insight-section {
+
+    margin-top: 1.5rem;
+}
+
+
+:host ::ng-deep .insight-card {
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.insight-content {
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 1rem;
+
+    p {
+
+        margin:
+            0.35rem 0 0;
+
+        color: #64748b;
+
+        font-size: 0.9rem;
+    }
+}
+
+
+.insight-icon {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 2.7rem;
+    height: 2.7rem;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    font-size: 1.1rem;
+}
+
+.skeleton-space {
+    height: 1rem;
+}
+
+
+.skeleton-space-small {
+    height: 0.7rem;
+}
+
+// RESPONSIVE
+@media (max-width: 1200px) {
+
+    .dashboard-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .dashboard-header {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .dashboard-toolbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .toolbar-actions {
+
+        align-items: stretch;
+
+        flex-wrap: wrap;
+    }
+
+
+    .business-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-page {
+        padding: 1rem;
+    }
+
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .header-actions {
+
+        flex-direction: column;
+    }
+
+
+    .utilization-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .utilization-footer {
+
+        flex-direction: column;
+    }
+
+
+    .status-item {
+
+        align-items: flex-start;
+    }
+
+}

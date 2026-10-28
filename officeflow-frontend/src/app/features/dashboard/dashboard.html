@@ -1,0 +1,420 @@
+<section class="dashboard-page">
+    <div class="dashboard-header">
+
+        <div class="header-title">
+
+            <h1>{{ 'DASHBOARD.TITLE' | translate }}</h1>
+
+            <p>
+                {{ 'DASHBOARD.SUBTITLE' | translate }}
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <p-button [label]="'DASHBOARD.BOOK_DESK' | translate" icon="pi pi-plus" (onClick)="goToDeskBooking()">
+            </p-button>
+
+
+            <p-button [label]="'DASHBOARD.TEAM_PLANNER' | translate" icon="pi pi-users" severity="secondary"
+                [outlined]="true" (onClick)="goToTeamPlanner()">
+            </p-button>
+        </div>
+
+    </div>
+
+    <div class="dashboard-toolbar">
+
+        <div class="toolbar-info">
+            <span class="toolbar-title">
+                {{ 'DASHBOARD.WORKSPACE_OVERVIEW' | translate }}
+            </span>
+            <span class="toolbar-description">
+                {{ 'DASHBOARD.WORKSPACE_OVERVIEW_DESC' | translate }}
+            </span>
+        </div>
+
+        <div class="toolbar-actions">
+
+            <div class="date-filter">
+
+                <label>
+                    {{ 'DASHBOARD.DATE' | translate }}
+                </label>
+
+                <p-datepicker [(ngModel)]="selectedDate" dateFormat="dd/mm/yy" [showIcon]="true" [showButtonBar]="true"
+                    (onSelect)="onDateChange($event)">
+                </p-datepicker>
+
+            </div>
+
+
+            <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true"
+                [pTooltip]="'DASHBOARD.REFRESH' | translate" (onClick)="refreshDashboard()">
+            </p-button>
+
+        </div>
+
+    </div>
+
+    <p-message *ngIf="errorMessage" severity="error" [text]="errorMessage">
+    </p-message>
+
+
+    <div class="dashboard-grid" *ngIf="loading">
+
+        <p-card *ngFor="let item of [1,2,3,4]" styleClass="metric-card">
+
+            <p-skeleton width="8rem" height="1rem">
+            </p-skeleton>
+
+            <div class="skeleton-space"></div>
+
+            <p-skeleton width="5rem" height="2.8rem">
+            </p-skeleton>
+
+            <div class="skeleton-space-small"></div>
+
+            <p-skeleton width="10rem" height="0.8rem">
+            </p-skeleton>
+
+        </p-card>
+
+    </div>
+
+    <ng-container *ngIf="dashboard && dashboard as data">
+
+
+        <!-- =================================================== -->
+        <!-- KPI CARDS -->
+        <!-- =================================================== -->
+
+        <div class="dashboard-grid">
+            <p-card styleClass="metric-card">
+
+                <div class="metric-header">
+
+                    <span>
+                        {{ 'DASHBOARD.TOTAL_CAPACITY' | translate }}
+                    </span>
+
+                    <div class="metric-icon-container">
+                        <i class="pi pi-building"></i>
+                    </div>
+
+                </div>
+
+                <div class="metric-value">
+                    {{ dashboard.totalDesks }}
+                </div>
+
+
+                <div class="metric-description">
+                    {{ 'DASHBOARD.TOTAL_CAPACITY_DESC' | translate }}
+
+                </div>
+
+            </p-card>
+
+            <p-card styleClass="metric-card">
+
+                <div class="metric-header">
+
+                    <span>
+                        {{ 'DASHBOARD.RESERVED_DESKS' | translate }}
+                    </span>
+
+                    <p-tag [value]="'DASHBOARD.BOOKED' | translate" severity="danger">
+                    </p-tag>
+
+                </div>
+
+
+                <div class="metric-value">
+                    {{ dashboard.bookedDesks }}
+                </div>
+
+
+                <div class="metric-description">
+                    {{ 'DASHBOARD.RESERVED_DESKS_DESC' | translate }}
+                </div>
+
+            </p-card>
+
+            <p-card styleClass="metric-card">
+
+                <div class="metric-header">
+
+                    <span>
+                        {{ 'DASHBOARD.AVAILABLE_DESKS' | translate }}
+                    </span>
+
+                    <p-tag [value]="
+                dashboard.availableDesks > 0
+                ? ('STATUS.AVAILABLE' | translate)
+                : ('DASHBOARD.FULL' | translate)
+                " [severity]="getAvailabilitySeverity()">
+                    </p-tag>
+
+                </div>
+
+                <div class="metric-value">
+                    {{ dashboard.availableDesks }}
+                </div>
+
+
+                <div class="metric-description">
+                    {{ 'DASHBOARD.AVAILABLE_DESKS_DESC' | translate }}
+                </div>
+
+            </p-card>
+
+            <p-card styleClass="metric-card">
+
+                <div class="metric-header">
+
+                    <span>
+                        {{ 'DASHBOARD.PEOPLE_OFFICE' | translate }}
+                    </span>
+
+                    <div class="metric-icon-container">
+                        <i class="pi pi-users"></i>
+                    </div>
+
+                </div>
+                <div class="metric-value">
+                    {{ dashboard.peopleInOffice }}
+                </div>
+                <div class="metric-description">
+                    {{ 'DASHBOARD.EXPECTED_EMPLOYEES_OFFICE' | translate }}
+                </div>
+
+            </p-card>
+
+        </div>
+
+        <p-card [header]="'DASHBOARD.OFFICE_UTILIZATION' | translate" styleClass="utilization-card">
+            <div class="utilization-header">
+                <div>
+                    <div class="utilization-value">
+                        {{ dashboard.occupancy }}%
+                        <span>
+                            {{ 'DASHBOARD.UTILIZED' | translate }}
+                        </span>
+
+                    </div>
+
+                    <div class="utilization-status">
+                        {{ getOccupancyText() }}
+                    </div>
+
+                </div>
+                <p-tag [value]="
+dashboard.occupancy + '% ' + ('DASHBOARD.OCCUPIED' | translate)
+" [severity]="getOccupancySeverity()">
+                </p-tag>
+
+            </div>
+
+
+            <p-progressbar [value]="dashboard.occupancy" [showValue]="false">
+            </p-progressbar>
+
+            <div class=" utilization-footer">
+
+                <span>
+
+                    <i class="pi pi-check-circle"></i>
+
+                    {{ dashboard.availableDesks }}
+                    {{ 'DASHBOARD.FREE_DESKS' | translate }}
+                </span>
+
+                <span>
+                    {{ dashboard.bookedDesks }}
+                    {{ 'COMMON.OF' | translate }}
+
+                    {{ dashboard.totalDesks }}
+                    {{ 'DASHBOARD.DESKS_RESERVED' | translate }}
+                </span>
+            </div>
+
+        </p-card>
+
+        <div class="business-grid">
+            <p-card [header]="'DASHBOARD.OFFICE_STATUS' | translate" styleClass="business-card">
+                <div class="status-list">
+                    <div class="status-item">
+                        <div class="status-info">
+
+                            <div class="status-icon">
+                                <i class="pi pi-desktop"></i>
+                            </div>
+                            <div>
+
+                                <strong>
+                                    {{ 'DASHBOARD.DESK_AVAILABILITY' | translate }}
+                                </strong>
+
+                                <span>
+                                    {{ 'DASHBOARD.CURRENT_WORKSPACES' | translate }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <p-tag [value]="
+dashboard.availableDesks +
+' available'
+" [severity]="getAvailabilitySeverity()">
+                        </p-tag>
+
+                    </div>
+
+                    <div class="status-item">
+
+                        <div class="status-info">
+
+                            <div class="status-icon">
+                                <i class="pi pi-chart-bar"></i>
+                            </div>
+
+
+                            <div>
+                                <strong>
+                                    {{ 'DASHBOARD.OFFICE_UTILIZATION' | translate }}
+                                </strong>
+                                <span>
+                                    {{ 'DASHBOARD.CAPACITY_RESERVED' | translate }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <p-tag [value]="dashboard.occupancy + '%'" [severity]="getOccupancySeverity()">
+                        </p-tag>
+
+                    </div>
+
+                    <div class="status-item">
+
+                        <div class=" status-info">
+
+                            <div class="status-icon">
+                                <i class="pi pi-users"></i>
+                            </div>
+                            <div>
+                                <strong>
+                                    {{ 'DASHBOARD.EXPECTED_EMPLOYEES' | translate }}
+                                </strong>
+                                <span>
+                                    {{ 'DASHBOARD.PEOPLE_RESERVATIONS' | translate }}
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <strong class="status-number">
+                            {{ dashboard.peopleInOffice }}
+                        </strong>
+                    </div>
+                </div>
+            </p-card>
+
+            <p-card [header]="'DASHBOARD.QUICK_ACTIONS' | translate" styleClass="business-card">
+
+                <p class="quick-actions-description">
+                    {{ 'DASHBOARD.COMMON_ACTIONS' | translate }}
+                </p>
+
+                <div class="quick-actions">
+                    <p-button [label]="'DASHBOARD.BOOK_DESK' | translate" icon="pi pi-calendar-plus" styleClass="w-full"
+                        (onClick)="goToDeskBooking()">
+                    </p-button>
+                    <p-button [label]="'DASHBOARD.MY_BOOKINGS' | translate" icon="pi pi-calendar" severity="secondary"
+                        [outlined]="true" styleClass="w-full" (onClick)="goToMyBookings()">
+                    </p-button>
+                    <p-button [label]="'DASHBOARD.TEAM_PLANNER' | translate" icon="pi pi-users" severity="secondary"
+                        [outlined]="true" styleClass="w-full" (onClick)="goToTeamPlanner()">
+                    </p-button>
+                </div>
+            </p-card>
+        </div>
+
+        <div class="insight-section">
+            <p-card [header]="'DASHBOARD.CAPACITY_INSIGHT' | translate" styleClass="insight-card">
+                <div class="insight-content">
+                    <div class="insight-icon">
+                        <i class="pi" [ngClass]="
+dashboard.occupancy >= 80
+? 'pi-exclamation-triangle'
+: 'pi-info-circle'
+">
+                        </i>
+
+                    </div>
+
+                    <div>
+                        <strong>
+                            <ng-container *ngIf="dashboard.occupancy >= 90">
+                                {{ 'DASHBOARD.HIGH_CAPACITY' | translate }}
+
+                            </ng-container>
+
+
+                            <ng-container *ngIf="
+dashboard.occupancy >= 70 &&
+dashboard.occupancy < 90
+">
+
+                                {{ 'DASHBOARD.GETTING_BUSY' | translate }}
+
+                            </ng-container>
+
+
+                            <ng-container *ngIf="
+dashboard.occupancy < 70
+">
+                                {{ 'DASHBOARD.HEALTHY_CAPACITY' | translate }}
+
+                            </ng-container>
+
+                        </strong>
+
+
+                        <p *ngIf="dashboard.occupancy >= 90">
+
+                            Only
+                            {{ dashboard.availableDesks }}
+                            desk(s) remain available for this date.
+
+                        </p>
+
+
+                        <p *ngIf="dashboard.occupancy >= 70 &&dashboard.occupancy < 90">
+
+                            {{ dashboard.availableDesks }}
+                            desks are still available.
+
+                        </p>
+
+
+                        <p *ngIf="dashboard.occupancy < 70">
+
+                            There is currently enough desk capacity
+                            for additional employees.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </p-card>
+
+        </div>
+
+    </ng-container>
+
+</section>
