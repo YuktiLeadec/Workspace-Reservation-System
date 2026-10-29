@@ -1,0 +1,17 @@
+com\officeflow\backend\Service\DeskBookingService.class
+com\officeflow\backend\OfficeflowBackendApplication.class
+com\officeflow\backend\Controller\EmployeeController.class
+com\officeflow\backend\Entity\Employee.class
+com\officeflow\backend\Controller\TeamPlannerController.class
+com\officeflow\backend\Repository\DeskRepository.class
+com\officeflow\backend\Repository\EmployeeRepository.class
+com\officeflow\backend\Controller\DeskBookingController.class
+com\officeflow\backend\Repository\DeskBookingRepository.class
+com\officeflow\backend\Service\DeskService.class
+com\officeflow\backend\Entity\DeskBooking.class
+com\officeflow\backend\TestController.class
+com\officeflow\backend\DTO\DeskBookingResponse.class
+com\officeflow\backend\config\SecurityConfig.class
+com\officeflow\backend\Controller\DashboardController.class
+com\officeflow\backend\Entity\Desk.class
+com\officeflow\backend\Controller\DeskController.class
